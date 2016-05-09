@@ -1,4 +1,4 @@
-package de.hegmanns.financial.math;
+package de.hegmanns.financial.money;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -107,6 +107,24 @@ public class Money implements Cloneable, Serializable, Comparable<Money> {
 	public Money multiply(BigDecimal factor){
 		return buildSameCurrency(this.amount.multiply(factor));
 	}
+	
+	public Money add(Money amount, ExchangeRate exchangeRate){
+		Money amountInThisCurrency = exchangeRate.getTargetMoney(amount);
+		return add(amountInThisCurrency.getAmount());
+	}
+	
+	public Money subtract(Money amount, ExchangeRate exchangeRate){
+		return add(exchangeRate.getTargetMoney(amount));
+	}
+	
+	public Money add(Money amount, ExchangeRateFactory exchangeRateFactory){
+		return add(exchangeRateFactory.locateExchangeRate(this.currency, amount.currency).getTargetMoney(amount));
+	}
+	
+	public Money subtract(Money amount, ExchangeRateFactory exchangeRateFactory){
+		return add(exchangeRateFactory.locateExchangeRate(amount.getCurrency(), this.currency).getTargetMoney(amount));
+	}
+	
 	
 	public Money divide(BigDecimal divisor){
 		return buildSameCurrency(this.amount.divide(divisor));

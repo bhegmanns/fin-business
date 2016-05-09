@@ -7,6 +7,9 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import de.hegmanns.financial.money.Currency;
+import de.hegmanns.financial.money.Money;
+
 public class MathUnitTest {
 
 	@Test

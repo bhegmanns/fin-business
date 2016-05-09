@@ -3,8 +3,8 @@ package de.hegmanns.financial.math;
 public class DivisionProgram {
 
 	private float numerator;
-	 private float denominator;
-	 private float quotient;
+	private float denominator;
+	private float quotient;
 	 
 	public void setNumerator(float numerator) {
 	 this.numerator = numerator;

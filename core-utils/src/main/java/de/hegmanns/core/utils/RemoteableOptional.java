@@ -15,33 +15,33 @@ import java.util.function.Supplier;
  *
  * @param <T> type
  */
-public class RemotableOptional<T> implements Serializable {
+public class RemoteableOptional<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final RemotableOptional<?> EMPTY = new RemotableOptional<>();
+	private static final RemoteableOptional<?> EMPTY = new RemoteableOptional<>();
 	
 	private final T value;
 	
-	private RemotableOptional() {
+	private RemoteableOptional() {
 		this.value = null;
 	}
 	
-	public static <T> RemotableOptional<T> empty(){
+	public static <T> RemoteableOptional<T> empty(){
 		@SuppressWarnings("unchecked")
-		RemotableOptional<T> remotableOptional = (RemotableOptional<T>) EMPTY;
-		return remotableOptional;
+		RemoteableOptional<T> remoteableOptional = (RemoteableOptional<T>) EMPTY;
+		return remoteableOptional;
 	}
 	
-	private RemotableOptional(T value){
+	private RemoteableOptional(T value){
 		this.value = Objects.requireNonNull(value);
 	}
 	
-	public static <T> RemotableOptional<T> of(T value){
-		return new RemotableOptional<>(value);
+	public static <T> RemoteableOptional<T> of(T value){
+		return new RemoteableOptional<>(value);
 	}
 	
-	public static <T> RemotableOptional<T> ofNullable(T value){
+	public static <T> RemoteableOptional<T> ofNullable(T value){
 		return value == null ? empty() : of(value);
 	}
 	
@@ -63,7 +63,7 @@ public class RemotableOptional<T> implements Serializable {
 		}
 	}
 	
-	public RemotableOptional<T> filter(Predicate<? super T> predicate){
+	public RemoteableOptional<T> filter(Predicate<? super T> predicate){
 		Objects.requireNonNull(predicate);
 		if (!isPresent()){
 			return this;
@@ -74,16 +74,16 @@ public class RemotableOptional<T> implements Serializable {
 		}
 	}
 	
-	public <U> RemotableOptional<U> map(Function<? super T, ? extends U> mapper){
+	public <U> RemoteableOptional<U> map(Function<? super T, ? extends U> mapper){
 		Objects.requireNonNull(mapper);
 		if (!isPresent()){
 			return empty();
 		}else{
-			return RemotableOptional.ofNullable(mapper.apply(value));
+			return RemoteableOptional.ofNullable(mapper.apply(value));
 		}
 	}
 	
-	public <U> RemotableOptional<U> flatMap(Function<? super T, RemotableOptional<U>> mapper){
+	public <U> RemoteableOptional<U> flatMap(Function<? super T, RemoteableOptional<U>> mapper){
 		Objects.requireNonNull(mapper);
 		if (!isPresent()){
 			return empty();
@@ -114,11 +114,11 @@ public class RemotableOptional<T> implements Serializable {
             return true;
         }
 
-        if (!(obj instanceof RemotableOptional)) {
+        if (!(obj instanceof RemoteableOptional)) {
             return false;
         }
 
-        RemotableOptional<?> other = (RemotableOptional<?>) obj;
+        RemoteableOptional<?> other = (RemoteableOptional<?>) obj;
         return Objects.equals(value, other.value);
     }
 	

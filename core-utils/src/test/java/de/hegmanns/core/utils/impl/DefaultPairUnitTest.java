@@ -19,7 +19,7 @@ public class DefaultPairUnitTest {
 	public void returnsOriginalInstances(){
 		BigDecimal myFirstValue = BigDecimal.valueOf(222);
 		LocalDate mySecondValue = LocalDate.now();
-		DefaultPair<BigDecimal, LocalDate> myPair = new DefaultPair<BigDecimal, LocalDate>(myFirstValue, mySecondValue);
+		DefaultPair<BigDecimal, LocalDate> myPair = new DefaultPair<>(myFirstValue, mySecondValue);
 		
 		assertThat(myPair.getFirst(), sameInstance(myFirstValue));
 		assertThat(myPair.getSecond(), sameInstance(mySecondValue));

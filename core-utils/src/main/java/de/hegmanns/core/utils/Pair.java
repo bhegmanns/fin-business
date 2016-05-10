@@ -1,8 +1,8 @@
 package de.hegmanns.core.utils;
 
 /**
- * Data-Holder for two releated values, vor example a point in catesic system,
- * or for subect-matter knowledge, my be a value with its unit (e.g. money-amount and money-currency).
+ * Data-Holder for two related values, vor example a point in cartesian system,
+ * or for subject-matter knowledge, my be a value with its unit (e.g. money-amount and money-currency).
  * 
  * 
  * @author B. Hegmanns

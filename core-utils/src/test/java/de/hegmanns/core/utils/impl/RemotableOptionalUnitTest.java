@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.hegmanns.core.utils.RemotableOptional;
+import de.hegmanns.core.utils.RemoteableOptional;
 import de.hegmanns.core.utils.helper.NotSerializableClazz;
 import de.hegmanns.core.utils.helper.SerializableClazz;
 import de.hegmanns.test.utils.SerializationTestHelper;
@@ -37,7 +37,7 @@ public class RemotableOptionalUnitTest {
 	
 	@Test
 	public void remotableOptionalIsSerializable() throws IOException{
-		RemotableOptional<BigDecimal> bigDecimalOptional = RemotableOptional.of(BigDecimal.TEN);
+		RemoteableOptional<BigDecimal> bigDecimalOptional = RemoteableOptional.of(BigDecimal.TEN);
 		SerialationTestResult result = SerializationTestHelper.checkSerialize(bigDecimalOptional);
 		
 		assertThat(result, is(SerialationTestResult.OK));
@@ -45,34 +45,34 @@ public class RemotableOptionalUnitTest {
 	
 	@Test
 	public void isPresentForEmpty(){
-		assertThat(RemotableOptional.empty().isPresent(), is(false));
+		assertThat(RemoteableOptional.empty().isPresent(), is(false));
 	}
 	
 	@Test
 	public void isPresentForNotEmpty(){
-		assertThat(RemotableOptional.of(BigDecimal.TEN).isPresent(), is(true));
+		assertThat(RemoteableOptional.of(BigDecimal.TEN).isPresent(), is(true));
 	}
 	
 	@Test
 	public void ofNullableWithNull(){
-		assertThat(RemotableOptional.ofNullable(null).isPresent(), is(false));
+		assertThat(RemoteableOptional.ofNullable(null).isPresent(), is(false));
 	}
 	
 	@Test
 	public void ofNullableWithNotNull(){
 		BigDecimal bigDecimal = BigDecimal.TEN;
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.ofNullable(bigDecimal);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.ofNullable(bigDecimal);
 		
-		assertThat(remotableOptional.isPresent(), is(true));
-		assertThat(remotableOptional.get(), sameInstance(bigDecimal));
+		assertThat(remoteableOptional.isPresent(), is(true));
+		assertThat(remoteableOptional.get(), sameInstance(bigDecimal));
 	}
 	
 	@Test
 	public void remotableOptionalWithNotSerializable() throws IOException{
 		NotSerializableClazz notSerializableClazz = new NotSerializableClazz();
 		notSerializableClazz.setValue(100);
-		RemotableOptional<NotSerializableClazz> remotableOptional = RemotableOptional.of(notSerializableClazz);
-		SerialationTestResult result = SerializationTestHelper.checkSerialize(remotableOptional);
+		RemoteableOptional<NotSerializableClazz> remoteableOptional = RemoteableOptional.of(notSerializableClazz);
+		SerialationTestResult result = SerializationTestHelper.checkSerialize(remoteableOptional);
 		
 		assertThat(result, is(SerialationTestResult.ERROR_NOT_SERIALIZABLE));
 	}
@@ -81,15 +81,15 @@ public class RemotableOptionalUnitTest {
 	public void remotableOptionalWithSerializable() throws IOException{
 		SerializableClazz serializableClazz = new SerializableClazz();
 		serializableClazz.setValue(100);
-		RemotableOptional<SerializableClazz> remotableOptional = RemotableOptional.of(serializableClazz);		
-		SerialationTestResult result = SerializationTestHelper.checkSerialize(remotableOptional);
+		RemoteableOptional<SerializableClazz> remoteableOptional = RemoteableOptional.of(serializableClazz);
+		SerialationTestResult result = SerializationTestHelper.checkSerialize(remoteableOptional);
 		
 		assertThat(result, is(SerialationTestResult.OK));
 	}
 	
 	@Test
 	public void hashCodeForEmptyReturns0(){
-		RemotableOptional<Object> empty = RemotableOptional.empty();
+		RemoteableOptional<Object> empty = RemoteableOptional.empty();
 		assertThat(empty.hashCode(), is(0));
 	}
 	
@@ -98,29 +98,29 @@ public class RemotableOptionalUnitTest {
 		BigDecimal anyInstance = new BigDecimal(1000);
 		BigDecimal spyAnyInstance = Mockito.spy(anyInstance);
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(spyAnyInstance);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(spyAnyInstance);
 		
-		remotableOptional.hashCode();
+		remoteableOptional.hashCode();
 		Mockito.verify(spyAnyInstance, Mockito.times(1)).hashCode();
 	}
 	
 	@Test(expected = NoSuchElementException.class)
 	public void getForEmpty(){
-		RemotableOptional.empty().get();
+		RemoteableOptional.empty().get();
 	}
 	
 	@Test
 	public void orElseNotEmpty(){
 		BigDecimal instance = BigDecimal.TEN;
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(instance);
-		assertThat(remotableOptional.orElse(BigDecimal.ONE), sameInstance(instance));
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(instance);
+		assertThat(remoteableOptional.orElse(BigDecimal.ONE), sameInstance(instance));
 	}
 	
 	@Test
 	public void orElseEmpty(){
 		BigDecimal otherInstance = BigDecimal.ONE;
-		assertThat(RemotableOptional.empty().orElse(otherInstance), sameInstance(otherInstance));
+		assertThat(RemoteableOptional.empty().orElse(otherInstance), sameInstance(otherInstance));
 	}
 	
 	@Test
@@ -128,8 +128,8 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Consumer<Object> consumer = Mockito.mock(Consumer.class);
 		
-		RemotableOptional<Object> remotableOptional = RemotableOptional.empty();
-		remotableOptional.ifPresent(consumer);
+		RemoteableOptional<Object> remoteableOptional = RemoteableOptional.empty();
+		remoteableOptional.ifPresent(consumer);
 		
 		Mockito.verify(consumer, Mockito.never()).accept(Mockito.any());
 	}
@@ -140,8 +140,8 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Consumer<BigDecimal> consumer = Mockito.mock(Consumer.class);
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(instance);
-		remotableOptional.ifPresent(consumer);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(instance);
+		remoteableOptional.ifPresent(consumer);
 		Mockito.verify(consumer, Mockito.times(1)).accept(instance);
 	}
 	
@@ -150,8 +150,8 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Supplier<Object> supplier = Mockito.mock(Supplier.class);
 		
-		RemotableOptional<Object> remotableOptional = RemotableOptional.empty();
-		remotableOptional.orElseGet(supplier);
+		RemoteableOptional<Object> remoteableOptional = RemoteableOptional.empty();
+		remoteableOptional.orElseGet(supplier);
 		Mockito.verify(supplier, Mockito.times(1)).get();
 	}
 	
@@ -161,17 +161,17 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Supplier<BigDecimal> supplier = Mockito.mock(Supplier.class);
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(instance);
-		remotableOptional.orElseGet(supplier);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(instance);
+		remoteableOptional.orElseGet(supplier);
 		Mockito.verify(supplier, Mockito.never()).get();
 	}
 	
 	@Test(expected = Throwable.class)
 	public void orElseThrowWithEmpty() throws Throwable{
-		Supplier<Throwable> supplier = () -> new Throwable();
+		Supplier<Throwable> supplier = Throwable::new;//() -> new Throwable();
 		
-		RemotableOptional<Object> remotableOptional = RemotableOptional.empty();
-		remotableOptional.orElseThrow(supplier);
+		RemoteableOptional<Object> remoteableOptional = RemoteableOptional.empty();
+		remoteableOptional.orElseThrow(supplier);
 	}
 	
 	@Test
@@ -180,14 +180,14 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Supplier<Throwable> supplier = Mockito.mock(Supplier.class);
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(instance);
-		remotableOptional.orElseThrow(supplier);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(instance);
+		remoteableOptional.orElseThrow(supplier);
 		Mockito.verify(supplier, Mockito.never()).get();
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void mapWithNullMapper(){
-		RemotableOptional.of(BigDecimal.TEN).map(null);
+		RemoteableOptional.of(BigDecimal.TEN).map(null);
 	}
 	
 	@Test
@@ -195,8 +195,8 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Function<BigDecimal, Object> mapper = Mockito.mock(Function.class);
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.empty();
-		remotableOptional.map(mapper);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.empty();
+		remoteableOptional.map(mapper);
 		
 		Mockito.verify(mapper, Mockito.never()).apply(any());
 	}
@@ -206,57 +206,57 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Function<BigDecimal, Object> mapper = Mockito.mock(Function.class);
 		
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(BigDecimal.TEN);
-		remotableOptional.map(mapper);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(BigDecimal.TEN);
+		remoteableOptional.map(mapper);
 		Mockito.verify(mapper, Mockito.times(1)).apply(Mockito.eq(BigDecimal.TEN));
 	}
 	
 	@Test
 	public void toStringWithEmpty(){
-		RemotableOptional<Object> remotableOptional = RemotableOptional.empty();
-		assertThat(remotableOptional.toString(), comparesEqualTo("RemoteableOptional.empty"));
+		RemoteableOptional<Object> remoteableOptional = RemoteableOptional.empty();
+		assertThat(remoteableOptional.toString(), comparesEqualTo("RemoteableOptional.empty"));
 	}
 	
 	@Test
 	public void toStringWithPresent(){
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(BigDecimal.TEN);
-		String toStringResult = remotableOptional.toString();
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(BigDecimal.TEN);
+		String toStringResult = remoteableOptional.toString();
 		
 		assertThat(toStringResult, comparesEqualTo("RemoteableOptional[10]"));
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void flatMapWithNullMapper(){
-		RemotableOptional.of(BigDecimal.TEN).flatMap(null);
+		RemoteableOptional.of(BigDecimal.TEN).flatMap(null);
 	}
 	
 	@Test
 	public void flatMapWithEmpty(){
 		@SuppressWarnings("unchecked")
-		Function<BigDecimal, RemotableOptional<Object>> mapper = Mockito.mock(Function.class);
-		RemotableOptional.<BigDecimal>empty().flatMap(mapper);
+		Function<BigDecimal, RemoteableOptional<Object>> mapper = Mockito.mock(Function.class);
+		RemoteableOptional.<BigDecimal>empty().flatMap(mapper);
 		Mockito.verify(mapper, Mockito.never()).apply(any());
 	}
 	
 	@Test
 	public void flatMapWithPresent(){
 		@SuppressWarnings("unchecked")
-		Function<BigDecimal, RemotableOptional<Object>> mapper = Mockito.mock(Function.class);
-		Mockito.when(mapper.apply(any())).thenReturn(RemotableOptional.of(new Object()));
-		RemotableOptional.of(BigDecimal.TEN).flatMap(mapper);
+		Function<BigDecimal, RemoteableOptional<Object>> mapper = Mockito.mock(Function.class);
+		Mockito.when(mapper.apply(any())).thenReturn(RemoteableOptional.of(new Object()));
+		RemoteableOptional.of(BigDecimal.TEN).flatMap(mapper);
 		Mockito.verify(mapper, Mockito.times(1)).apply(any());
 	}
 	
 	@Test(expected = NullPointerException.class)
 	public void filterWithNullPredicate(){
-		RemotableOptional.of(BigDecimal.TEN).filter(null);
+		RemoteableOptional.of(BigDecimal.TEN).filter(null);
 	}
 	
 	@Test
 	public void filterWithEmpty(){
 		@SuppressWarnings("unchecked")
 		Predicate<Object> predicate = Mockito.mock(Predicate.class);
-		RemotableOptional.<Object>empty().filter(predicate);
+		RemoteableOptional.<Object>empty().filter(predicate);
 		
 		Mockito.verify(predicate, Mockito.never()).test(Mockito.any());
 	}
@@ -267,7 +267,7 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Predicate<Object> predicate = Mockito.mock(Predicate.class);
 		Mockito.when(predicate.test(Mockito.any())).thenReturn(true);
-		RemotableOptional<Object> result = RemotableOptional.<Object>of(value).filter(predicate);
+		RemoteableOptional<Object> result = RemoteableOptional.<Object>of(value).filter(predicate);
 		
 		assertThat(result.get(), sameInstance(value));
 	}
@@ -278,39 +278,39 @@ public class RemotableOptionalUnitTest {
 		@SuppressWarnings("unchecked")
 		Predicate<Object> predicate = Mockito.mock(Predicate.class);
 		Mockito.when(predicate.test(Mockito.any())).thenReturn(false);
-		RemotableOptional<Object> result = RemotableOptional.<Object>of(value).filter(predicate);
+		RemoteableOptional<Object> result = RemoteableOptional.<Object>of(value).filter(predicate);
 		
 		assertThat(result.isPresent(), is(false));
 	}
 	
 	@Test
 	public void equalsSameInstances(){
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(BigDecimal.TEN);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(BigDecimal.TEN);
 		
-		assertThat(remotableOptional.equals(remotableOptional), is(true));
+		assertThat(remoteableOptional.equals(remoteableOptional), is(true));
 	}
 	
 	@Test
 	public void equalsNotSameInstanceOf(){
-		RemotableOptional<BigDecimal> remotableOptional = RemotableOptional.of(BigDecimal.TEN);
+		RemoteableOptional<BigDecimal> remoteableOptional = RemoteableOptional.of(BigDecimal.TEN);
 		BigDecimal bigDecimal = BigDecimal.TEN;
 		
-		assertThat(remotableOptional.equals(bigDecimal), is(false));
+		assertThat(remoteableOptional.equals(bigDecimal), is(false));
 	}
 	
 	@Test
 	public void equalsSameValues(){
-		RemotableOptional<BigDecimal> remotableOptionalFirst = RemotableOptional.of(BigDecimal.TEN);
-		RemotableOptional<BigDecimal> remotableOptionalSecond = RemotableOptional.of(BigDecimal.TEN);
+		RemoteableOptional<BigDecimal> remoteableOptionalFirst = RemoteableOptional.of(BigDecimal.TEN);
+		RemoteableOptional<BigDecimal> remoteableOptionalSecond = RemoteableOptional.of(BigDecimal.TEN);
 		
-		assertThat(remotableOptionalFirst.equals(remotableOptionalSecond), is(true));
+		assertThat(remoteableOptionalFirst.equals(remoteableOptionalSecond), is(true));
 	}
 	
 	@Test
 	public void equalsNotSameValues(){
-		RemotableOptional<BigDecimal> remotableOptionalFirst = RemotableOptional.of(BigDecimal.TEN);
-		RemotableOptional<BigDecimal> remotableOptionalSecond = RemotableOptional.of(BigDecimal.ONE);
+		RemoteableOptional<BigDecimal> remoteableOptionalFirst = RemoteableOptional.of(BigDecimal.TEN);
+		RemoteableOptional<BigDecimal> remoteableOptionalSecond = RemoteableOptional.of(BigDecimal.ONE);
 		
-		assertThat(remotableOptionalFirst.equals(remotableOptionalSecond), is(false));
+		assertThat(remoteableOptionalFirst.equals(remoteableOptionalSecond), is(false));
 	}
 }

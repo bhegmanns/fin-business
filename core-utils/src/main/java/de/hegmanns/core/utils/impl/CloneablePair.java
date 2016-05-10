@@ -1,19 +1,19 @@
 package de.hegmanns.core.utils.impl;
 
-import de.hegmanns.core.utils.ClonableInstance;
+import de.hegmanns.core.utils.CloneableInstance;
 import de.hegmanns.core.utils.Pair;
 
 /**
- * This special pair returns a clone from first and second instanc.
+ * This special pair returns a clone from first and second instance.
  * 
  * @author B. Hegmanns
  *
  * @param <S> type S
  * @param <T> type T
  */
-public class ClonablePair<S extends ClonableInstance<S>, T extends ClonableInstance<T>> extends AbstractPair<S, T> implements Pair<S, T> {
+public class CloneablePair<S extends CloneableInstance<S>, T extends CloneableInstance<T>> extends AbstractPair<S, T> implements Pair<S, T> {
 
-	public ClonablePair(S firstValue, T secondValue){
+	public CloneablePair(S firstValue, T secondValue){
 		super(firstValue, secondValue);
 	}
 

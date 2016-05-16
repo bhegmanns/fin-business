@@ -45,7 +45,7 @@
                 <version>${version.release-plugin}</version>
                 <configuration>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
-                    <pushChanges>true</pushChanges>
+                    <pushChanges>false</pushChanges>
                 </configuration>
             </plugin>
 		</plugins>

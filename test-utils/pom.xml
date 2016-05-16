@@ -4,7 +4,7 @@
 
 	<groupId>de.hegmanns</groupId>
 	<artifactId>test-utils</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Test Utilities</name>
@@ -16,9 +16,29 @@
     <scm>
         <url>https://github.com/bhegmanns/fin-business/tree/master/test-utils</url>
         <developerConnection>scm:git:https://github.com/bhegmanns/fin-business.git</developerConnection>
-    <tag>HEAD</tag>
   </scm>
- 
+
+	<licenses>
+		<license>
+			<name>GNU General Public License (GPL)</name>
+			<url>http://www.gnu.org/licenses/gpl.txt</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>hegi</id>
+			<name>Bernd Hegmanns</name>
+			<email>it@hegmanns.de</email>
+			<url>http://www.hegmanns.de</url>
+			<organization>IT-Hegmanns</organization>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+		</developer>
+	</developers>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.java>1.8</version.java>

@@ -15,7 +15,7 @@
 
     <scm>
         <url>https://github.com/bhegmanns/fin-business/tree/master/test-utils</url>
-        <developerConnection>scm:git:git@github.com:bhegmanns/fin-business.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/bhegmanns/fin-business.git</developerConnection>
     </scm>
  
 	<properties>
@@ -45,7 +45,7 @@
                 <version>${version.release-plugin}</version>
                 <configuration>
                     <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
-                    <pushChanges>false</pushChanges>
+                    <pushChanges>true</pushChanges>
                 </configuration>
             </plugin>
 		</plugins>

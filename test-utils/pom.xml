@@ -4,7 +4,7 @@
 
 	<groupId>de.hegmanns</groupId>
 	<artifactId>test-utils</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>Test Utilities</name>
@@ -16,7 +16,8 @@
     <scm>
         <url>https://github.com/bhegmanns/fin-business/tree/master/test-utils</url>
         <developerConnection>scm:git:https://github.com/bhegmanns/fin-business.git</developerConnection>
-    </scm>
+      <tag>test-utils-0.0.1</tag>
+  </scm>
  
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

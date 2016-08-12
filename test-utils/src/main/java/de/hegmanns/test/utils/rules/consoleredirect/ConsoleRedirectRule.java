@@ -17,8 +17,7 @@ import org.junit.runners.model.Statement;
  * <pre>
  * <code>
  * public class YourTest{
- *  
- *  @Rule
+ *  Rule
  *  private ConsoleRedirectRule consoleRedirectRule = ConsoleRedirectRule.instance();
  *  
  *  public void yourTestMethod(){
@@ -38,7 +37,7 @@ public class ConsoleRedirectRule implements TestRule{
 	
 	/**
 	 * 
-	 * @return
+	 * @return a new ConsoleRedirectRule-instance
 	 */
 	public static ConsoleRedirectRule instance() {
 		return new ConsoleRedirectRule();

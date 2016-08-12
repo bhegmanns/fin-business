@@ -88,7 +88,10 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${version.junit}</version>
-			<scope>test</scope>
+			<!--
+				here no test-scope, because her are some
+				additional add-ons for junit-framework
+			  -->
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>

@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+import org.mockito.internal.stubbing.answers.Returns;
 
 /**
  * This JUnit-Rule redirects the console-output to this rule-instance.
@@ -17,12 +18,19 @@ import org.junit.runners.model.Statement;
  * <pre>
  * <code>
  * public class YourTest{
- *  Rule
+ * 
+ *  &#64;Rule
  *  private ConsoleRedirectRule consoleRedirectRule = ConsoleRedirectRule.instance();
  *  
  *  public void yourTestMethod(){
  *     System.out.println("HalloWelt");
- *     assertThat(consoleRedirectRule.getConsoleoutput(), is("HalloWelt"));
+ *     assertThat(consoleRedirectRule.getOutput(), containsString("HalloWelt"));
+ *     assertThat(consoleRedirectRule.getOutput(), not("HalloWelt"));
+ *  }
+ *  
+ *  public void yourSecondTestMethod(){
+ *     System.out.print("HalloWelt");
+ *     assertThat(consoleRedirectRule.getOutput(), is("HalloWelt"));
  *  }
  * 
  * }
@@ -45,16 +53,29 @@ public class ConsoleRedirectRule implements TestRule{
 
 	@Override
 	public Statement apply(Statement baseStatement, Description description) {
+		consoleRedirectStatement = new ConsoleRedirectStatement();
+		consoleRedirectStatement.statement = baseStatement;
 		return consoleRedirectStatement;
 	}
 
+	/**
+	 * Returns the Output.
+	 * 
+	 * <p>
+	 * Note:<br>
+	 * If the SUT make System.out.println(...), the output contains the linefeeds.
+	 * </p>
+	 * @return the String-output, done via System.out
+	 */
 	public String getOutput() {
+		String returnString = null;
 		if (consoleRedirectStatement.testOutputString != null){
-			return consoleRedirectStatement.testOutputString;
+			returnString = consoleRedirectStatement.testOutputString;
 		}else{
-			String output = new String(consoleRedirectStatement.byteArrayOutputStream.toByteArray());
-			return output;
+			returnString = new String(consoleRedirectStatement.byteArrayOutputStream.toByteArray());
 		}
+		
+		return returnString;
 	}
 
 	private class ConsoleRedirectStatement extends Statement{
@@ -76,7 +97,7 @@ public class ConsoleRedirectRule implements TestRule{
 			
 			try{
 				statement.evaluate();
-			}catch(Throwable throwable){}
+			}
 			finally{
 				testOutputString = new String(byteArrayOutputStream.toByteArray());
 				System.setOut(realPrintStream);

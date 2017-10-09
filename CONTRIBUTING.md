@@ -1,6 +1,7 @@
 # Contributing to fin-business
 So you decided to contribute to our repository that contains usefull business APIs, that's great! Bellow we have gathered some info to help you easily and quickly submit your contribution. 
 
+
 # Getting Started
 1. First thing's first, before proposing any changes you have to fork our repository to your own account (on the Github website you can do that using the button on the top right of your screen).
 

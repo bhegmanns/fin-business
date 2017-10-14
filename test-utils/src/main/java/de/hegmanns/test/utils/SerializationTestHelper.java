@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InvalidClassException;
 import java.io.NotSerializableException;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
@@ -41,13 +42,13 @@ public class SerializationTestHelper {
 	 * Note, that the instance/class have to implement {@link Serializable}-interface.
 	 * 
 	 * @param instance the (serializable) instance
-	 * @param outputStream the output stream where the object would be written
+	 * @param objectOutput the output stream where the object would be written
 	 * @return {@link SerialationTestResult#OK} is it works other see {@link SerialationTestResult}
 	 */
-	public static SerialationTestResult serializeIntoStream(Object instance, ObjectOutputStream outputStream){
+	public static SerialationTestResult serializeIntoStream(Object instance, ObjectOutput objectOutput){
 		SerialationTestResult result = SerialationTestResult.OK;
 		try {
-			outputStream.writeObject(instance);
+			objectOutput.writeObject(instance);
 		} 
 		catch(InvalidClassException e){
 			result = SerialationTestResult.ERROR_INVALID_CLASS;

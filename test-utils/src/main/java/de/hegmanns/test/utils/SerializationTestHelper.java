@@ -20,7 +20,7 @@ public class SerializationTestHelper {
 	 * 
 	 * @author B. Hegmanns
 	 */
-	public static enum SerialationTestResult{
+	public static enum SerializationTestResult {
 		/** successful serialization */
 		OK, 
 		
@@ -42,21 +42,21 @@ public class SerializationTestHelper {
 	 * 
 	 * @param instance the (serializable) instance
 	 * @param outputStream the output stream where the object would be written
-	 * @return {@link SerialationTestResult#OK} is it works other see {@link SerialationTestResult}
+	 * @return {@link SerializationTestResult#OK} is it works other see {@link SerializationTestResult}
 	 */
-	public static SerialationTestResult serializeIntoStream(Object instance, ObjectOutputStream outputStream){
-		SerialationTestResult result = SerialationTestResult.OK;
+	public static SerializationTestResult serializeIntoStream(Object instance, ObjectOutputStream outputStream){
+		SerializationTestResult result = SerializationTestResult.OK;
 		try {
 			outputStream.writeObject(instance);
 		} 
 		catch(InvalidClassException e){
-			result = SerialationTestResult.ERROR_INVALID_CLASS;
+			result = SerializationTestResult.ERROR_INVALID_CLASS;
 		}
 		catch(NotSerializableException e){
-			result = SerialationTestResult.ERROR_NOT_SERIALIZABLE;
+			result = SerializationTestResult.ERROR_NOT_SERIALIZABLE;
 		}
 		catch (IOException e) {
-			result = SerialationTestResult.ERROR_IO;
+			result = SerializationTestResult.ERROR_IO;
 		} 
 		
 		return result;
@@ -66,14 +66,14 @@ public class SerializationTestHelper {
 	 * Checks if the instance should be serialized.
 	 * 
 	 * @param instance the instance
-	 * @return {@link SerialationTestResult#OK} if works, other see {#link {@link SerialationTestResult}
+	 * @return {@link SerializationTestResult#OK} if works, other see {#link {@link SerializationTestResult}
 	 */
-	public static SerialationTestResult checkSerialize(Object instance){
+	public static SerializationTestResult checkSerialize(Object instance){
 		try(ObjectOutputStream outputStream = new ObjectOutputStream(new ByteArrayOutputStream())){
 			return serializeIntoStream(instance, outputStream);
 		}
 		catch(IOException e){
-			return SerialationTestResult.ERROR_TECHNICAL;
+			return SerializationTestResult.ERROR_TECHNICAL;
 		}
 	}
 }

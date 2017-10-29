@@ -168,7 +168,7 @@ public class RemotableOptionalUnitTest {
 	
 	@Test(expected = Throwable.class)
 	public void orElseThrowWithEmpty() throws Throwable{
-		Supplier<Throwable> supplier = Throwable::new;//() -> new Throwable();
+		Supplier<Throwable> supplier = Throwable::new;
 		
 		RemoteableOptional<Object> remoteableOptional = RemoteableOptional.empty();
 		remoteableOptional.orElseThrow(supplier);

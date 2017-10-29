@@ -51,31 +51,11 @@ public class Money implements Cloneable, Serializable, Comparable<Money> {
 	private static Function<Money, Function<Money, BigDecimal>> subtractAmounts = a -> b -> a.amount.subtract(b.amount);
 	
 	public Money add(Money money){
-		// FUENFTE VARIANTE
 		return doItCurrencySave(addAmounts, this, money);
-		
-		// VIERTE VARIANTE
-//		return doItCurrencySave(i -> j -> i.amount.add(j.amount), this, money);
-		
-		// DRITTE VARIANTE
-//		return doWithMoneyAsBigDecimal(money, (b) -> this.amount.add(b));
-		
-		// ZWEITE VARIANTE
-//		return doWithMoney(money, (b) -> buildSameCurrency(this.amount.add(b)));
-		
-		
-		// ERSTE VARIANTE
-//		if (hasSameCurrency(money)){
-//			return buildSameCurrency(this.amount.add(money.amount));
-//		}
-//		throw new IllegalArgumentException("");
 	}
 	
 	public Money subtract(Money money){
 		return doItCurrencySave(subtractAmounts, this, money);
-//		return doItCurrencySave(a -> b -> a.amount.subtract(b.amount), this, money);
-//		return doWithMoneyAsBigDecimal(money, (b) -> this.amount.subtract(b));
-//		return doWithMoney(money, (b) -> buildSameCurrency(this.amount.subtract(b)));
 	}
 	
 	private Money doWithMoney(Money money, Function<BigDecimal, Money> yourFunction){

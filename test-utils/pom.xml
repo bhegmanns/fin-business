@@ -96,11 +96,11 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${version.slf4j}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-jdk14</artifactId>
-			<version>1.8.0-alpha2</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.slf4j</groupId>-->
+			<!--<artifactId>slf4j-jdk14</artifactId>-->
+			<!--<version>1.8.0-alpha2</version>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
